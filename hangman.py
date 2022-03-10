@@ -80,7 +80,7 @@ while Lives > 0:
     guessed_letter = input(" Enter 1  letter !\n")
     while True:
         if guessed_letter in already_tried_letters:
-            print("You've already typed this letter", already_tried_letters)   
+            print("You've already typed these letters", already_tried_letters)   
         else:      
             already_tried_letters.append(guessed_letter)
         break
