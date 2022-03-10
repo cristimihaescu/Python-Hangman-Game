@@ -1,14 +1,17 @@
+import random
+from hangman_visual import lives_visual_dict
 # PART 1
 # display a menu with at least 3 difficulty choices and ask the user
 # to select the desired level
-difficulty = "1" # sample data, normally the user should choose the difficulty
+difficulty = "1"  # sample data, normally the user should choose the difficulty
 
 
 # STEP 2
-# based on the chosen difficulty level, set the values 
+# based on the chosen difficulty level, set the values
 # for the player's lives
-word_to_guess = "Cairo" # sample data, normally the word should be chosen from the countries-and-capitals.txt
-lives = 5 # sample data, normally the lives should be chosen based on the difficulty
+# sample data, normally the word should be chosen from the countries-and-capitals.txt
+word_to_guess = "Cairo"
+lives = 5  # sample data, normally the lives should be chosen based on the difficulty
 
 
 # STEP 3
@@ -18,7 +21,7 @@ lives = 5 # sample data, normally the lives should be chosen based on the diffic
 
 # STEP 4
 # ask the user to type a letter
-# here you should validate if the typed letter is the word 
+# here you should validate if the typed letter is the word
 # "quit", "Quit", "QUit", "QUIt", "QUIT", "QuIT"... you get the idea :)
 # HINT: use the upper() or lower() built-in Python functions
 
@@ -27,9 +30,8 @@ lives = 5 # sample data, normally the lives should be chosen based on the diffic
 # validate if the typed letter is already in the tried letters
 # HINT: search on the internet: `python if letter in list`
 # If it is not, than append to the tried letters
-# If it has already been typed, return to STEP 5. HINT: use a while loop here
-already_tried_letters = [] # this list will contain all the tried letters
-
+# If it has already been typed, return to STEP 5. HINT: use a while loop here  # this list will contain all the tried letters
+already_tried_letters = []
 
 # STEP 6
 # if the letter is present in the word iterate through all the letters in the variable
@@ -42,7 +44,6 @@ already_tried_letters = [] # this list will contain all the tried letters
 # or draw a new beautiful one on your own.
 
 
-
 # STEP 7
 # check if the variable already_tried_letters already contains all the letters necessary
 # to build the value in the variable word_to_guess. If so display a winning message and exit
@@ -50,3 +51,73 @@ already_tried_letters = [] # this list will contain all the tried letters
 # If you still have letters that are not guessed check if you have a non negative amount of lives
 # left. If not print a loosing message and exit the app.
 # If neither of the 2 conditions mentioned above go back to STEP 4
+
+Word = ""  # O pereche random din lista de tari si capitale
+with open("D:\Codecool\hangman-python-cristimihaescu\countries-and-capitals.txt") as f:
+    lines = f.readlines()  # daca atribui f la lines , se inchide automat fisierul
+Word = random.choice(lines)
+Wordp = Word.index(" ")
+Word = Word[0:Wordp]
+print(Word)
+GuessedLetters = ""
+difficulty = input(
+    "Choose your difficulty level ! 1.EASY, 2.MEDIUM, 3.HARD:  ")
+Lives = 0
+used_letters = set()
+
+if difficulty == "1":
+    Lives = 7
+elif difficulty == "2":
+    Lives = 5
+elif difficulty == "3":
+    Lives = 3
+else:
+    print("That is not a choice!")
+
+print(len(Word) * "_ ")
+
+while Lives > 0:
+    guessed_letter = input(" Enter 1  letter !\n")
+    while True:
+        if guessed_letter in already_tried_letters:
+            print("You've already typed this letter", already_tried_letters)   
+        else:      
+            already_tried_letters.append(guessed_letter)
+        break
+        
+    if guessed_letter.lower() in Word.lower():
+        print(" Congrats! There is a", {
+              guessed_letter}, "in your secret word !")
+    else:
+        Lives -= 1
+        print(lives_visual_dict[Lives])
+        print("Oh no, you made a mistake! Maybe next time? :). Lives left: ", Lives)
+
+    GuessedLetters = GuessedLetters + guessed_letter.lower()
+    WrongLetters = 0
+    # already_tried_letters = []
+    # if guessed_letter in GuessedLetters:
+    # GuessedLetters.append(guessed_letter)
+    # if guessed_letter in Word:
+    # Word.remove(guessed_letter)
+    # elif guessed_letter in GuessedLetters:
+    #  print("You've already guessed that letter , use another one!")
+    #guesses = []
+    # if guesses[0] in already_tried_letters:
+    # print("You already typed this letter: ", {guessed_letter})
+
+    # if guessed_letter not in already_tried_letters:
+    #  already_tried_letters.append(guessed_letter)
+    #  print(already_tried_letters)
+
+    for letter in Word:
+        if letter.lower() in GuessedLetters:
+            print(f"{letter}", end="")
+        else:
+            print("_ ", end="")
+            WrongLetters += 1
+    if WrongLetters == 0:
+        print(f" \nCongrats ! The secret word was : {Word} . YOU WON ! ")
+        break
+else:
+    print("\nSorry , you've been hanged ! ")
