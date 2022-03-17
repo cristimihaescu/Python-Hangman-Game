@@ -61,15 +61,15 @@ word = word[0:wordposition]
 print(word)
 guessedletters = ""
 difficulty = input("Choose your difficulty level ! 1.EASY, 2.MEDIUM, 3.HARD:  ")
-Lives = 0
+lives = 0
 used_letters = set()
 
 if difficulty == "1":
-    Lives = 7
+    lives = 7
 elif difficulty == "2":
-    Lives = 5
+    lives = 5
 elif difficulty == "3":
-    Lives = 3
+    lives = 3
 elif difficulty == "quit":
     print("See you next time, bye !")
     quit()
@@ -79,7 +79,7 @@ else:
 
 print(len(word) * "_ ")
 
-while Lives > 0:
+while lives > 0:
     guessed_letter = input(" Enter 1  letter !\n")
     while True:
         if guessed_letter in already_tried_letters:
@@ -91,26 +91,12 @@ while Lives > 0:
     if guessed_letter.lower() in word.lower():
         print(" Congrats! There is a", {guessed_letter}, "in your secret word !")
     else:
-        Lives -= 1
-        print(lives_visual_dict[Lives])
-        print("Oh no, you made a mistake! Maybe next time? :). Lives left: ", Lives)
+        lives -= 1
+        print(lives_visual_dict[lives])
+        print("Oh no, you made a mistake! Maybe next time? :). lives left: ", lives)
 
     guessedletters = guessedletters + guessed_letter.lower()
     wrongletters = 0
-    # already_tried_letters = []
-    # if guessed_letter in guessedletters:
-    # guessedletters.append(guessed_letter)
-    # if guessed_letter in word:
-    # word.remove(guessed_letter)
-    # elif guessed_letter in guessedletters:
-    #  print("You've already guessed that letter , use another one!")
-    #guesses = []
-    # if guesses[0] in already_tried_letters:
-    # print("You already typed this letter: ", {guessed_letter})
-
-    # if guessed_letter not in already_tried_letters:
-    #  already_tried_letters.append(guessed_letter)
-    #  print(already_tried_letters)
 
     for letter in word:
         if letter.lower() in guessedletters:
