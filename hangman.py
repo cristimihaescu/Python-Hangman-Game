@@ -52,16 +52,15 @@ already_tried_letters = []
 # left. If not print a loosing message and exit the app.
 # If neither of the 2 conditions mentioned above go back to STEP 4
 
-Word = ""  # O pereche random din lista de tari si capitale
+word = ""  # O pereche random din lista de tari si capitale
 with open("D:\Codecool\hangman-python-cristimihaescu\countries-and-capitals.txt") as f:
     lines = f.readlines()  # daca atribui f la lines , se inchide automat fisierul
-Word = random.choice(lines)
-Wordp = Word.index(" ")
-Word = Word[0:Wordp]
-print(Word)
-GuessedLetters = ""
-difficulty = input(
-    "Choose your difficulty level ! 1.EASY, 2.MEDIUM, 3.HARD:  ")
+word = random.choice(lines)
+wordposition = word.index(" ")
+word = word[0:wordposition]
+print(word)
+guessedletters = ""
+difficulty = input("Choose your difficulty level ! 1.EASY, 2.MEDIUM, 3.HARD:  ")
 Lives = 0
 used_letters = set()
 
@@ -71,10 +70,14 @@ elif difficulty == "2":
     Lives = 5
 elif difficulty == "3":
     Lives = 3
+elif difficulty == "quit":
+    print("See you next time, bye !")
+    quit()
+    
 else:
     print("That is not a choice!")
 
-print(len(Word) * "_ ")
+print(len(word) * "_ ")
 
 while Lives > 0:
     guessed_letter = input(" Enter 1  letter !\n")
@@ -85,22 +88,21 @@ while Lives > 0:
             already_tried_letters.append(guessed_letter)
         break
         
-    if guessed_letter.lower() in Word.lower():
-        print(" Congrats! There is a", {
-              guessed_letter}, "in your secret word !")
+    if guessed_letter.lower() in word.lower():
+        print(" Congrats! There is a", {guessed_letter}, "in your secret word !")
     else:
         Lives -= 1
         print(lives_visual_dict[Lives])
         print("Oh no, you made a mistake! Maybe next time? :). Lives left: ", Lives)
 
-    GuessedLetters = GuessedLetters + guessed_letter.lower()
-    WrongLetters = 0
+    guessedletters = guessedletters + guessed_letter.lower()
+    wrongletters = 0
     # already_tried_letters = []
-    # if guessed_letter in GuessedLetters:
-    # GuessedLetters.append(guessed_letter)
-    # if guessed_letter in Word:
-    # Word.remove(guessed_letter)
-    # elif guessed_letter in GuessedLetters:
+    # if guessed_letter in guessedletters:
+    # guessedletters.append(guessed_letter)
+    # if guessed_letter in word:
+    # word.remove(guessed_letter)
+    # elif guessed_letter in guessedletters:
     #  print("You've already guessed that letter , use another one!")
     #guesses = []
     # if guesses[0] in already_tried_letters:
@@ -110,14 +112,14 @@ while Lives > 0:
     #  already_tried_letters.append(guessed_letter)
     #  print(already_tried_letters)
 
-    for letter in Word:
-        if letter.lower() in GuessedLetters:
+    for letter in word:
+        if letter.lower() in guessedletters:
             print(f"{letter}", end="")
         else:
             print("_ ", end="")
-            WrongLetters += 1
-    if WrongLetters == 0:
-        print(f" \nCongrats ! The secret word was : {Word} . YOU WON ! ")
+            wrongletters += 1
+    if wrongletters == 0:
+        print(f" \nCongrats ! The secret word was : {word} . YOU WON ! ")
         break
 else:
     print("\nSorry , you've been hanged ! ")
