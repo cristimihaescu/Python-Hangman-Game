@@ -32,6 +32,7 @@ lives = 5  # sample data, normally the lives should be chosen based on the diffi
 # If it is not, than append to the tried letters
 # If it has already been typed, return to STEP 5. HINT: use a while loop here  # this list will contain all the tried letters
 already_tried_letters = []
+already_tried_wrong_letters = []
 
 # STEP 6
 # if the letter is present in the word iterate through all the letters in the variable
@@ -78,6 +79,9 @@ else:
     print("That is not a choice!")
 
 print(len(word) * "_ ")
+wrongletters = 0
+wrong_typed_letters = ""
+
 
 while lives > 0:
     guessed_letter = input(" Enter 1  letter !\n")
@@ -87,16 +91,24 @@ while lives > 0:
         else:      
             already_tried_letters.append(guessed_letter)
         break
+  #  for letter1 in word:
+   #     if letter1 in guessedletters and letter1 in :
         
     if guessed_letter.lower() in word.lower():
         print(" Congrats! There is a", {guessed_letter}, "in your secret word !")
     else:
-        lives -= 1
-        print(lives_visual_dict[lives])
-        print("Oh no, you made a mistake! Maybe next time? :). lives left: ", lives)
-
+        while True:
+            already_tried_wrong_letters.append(guessed_letter)
+            print ("These are the wrong letters already tried", already_tried_wrong_letters)
+            if already_tried_wrong_letters in already_tried_letters:
+                lives = lives
+            else:
+                lives -= 1
+                print(lives_visual_dict[lives])
+                print("Oh no, you made a mistake! Maybe next time? :). lives left: ", lives)
+            break
+            
     guessedletters = guessedletters + guessed_letter.lower()
-    wrongletters = 0
 
     for letter in word:
         if letter.lower() in guessedletters:
