@@ -74,7 +74,6 @@ elif difficulty == "3":
 elif difficulty == "quit":
     print("See you next time, bye !")
     quit()
-    
 else:
     print("That is not a choice!")
 
