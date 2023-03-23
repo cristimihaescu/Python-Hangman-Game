@@ -59,7 +59,6 @@ with open("D:\Codecool\hangman-python-cristimihaescu\countries-and-capitals.txt"
 word = random.choice(lines)
 wordposition = word.index(" ")
 word = word[0:wordposition]
-print(word)
 guessedletters = ""
 difficulty = input("Choose your difficulty level ! 1.EASY, 2.MEDIUM, 3.HARD:  ")
 lives = 0
